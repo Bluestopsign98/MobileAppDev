@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BudgetApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Budget App</string>
+    <string name="nav_header_subtitle">By Tim Mele and Matt Koser</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Summary</string>
+    <string name="menu_gallery">List View</string>
+    <string name="menu_slideshow">Notes</string>
+</resources>
