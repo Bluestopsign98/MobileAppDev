@@ -9,6 +9,8 @@ import com.example.budgetapp.MainActivity
 import com.example.budgetapp.R
 import kotlinx.android.synthetic.main.activity_add_entry.*
 
+private const val TAG = "DetailsActivity"
+
 class EntryDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -48,7 +48,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                     "${NAME} TEXT," +
                     "${AMOUNT} TEXT," +
                     "${DATE} TEXT," +
-                    "${DESCRIPTION} TEXT)"
+                    "${DESCRIPTION} TEXT," +
                     "${CATEGORY} TEXT)"
         db?.execSQL(SQL_CREATE_TABLE)
     }
@@ -79,7 +79,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         contentValues.put(AMOUNT, amount)
         contentValues.put(DATE, date)
         contentValues.put(DESCRIPTION, desc)
-        contentValues.put(CATEGORY, desc)
+        contentValues.put(CATEGORY, category)
         // Insert the new row
         db.insert(TABLE_NAME, null, contentValues)
     }

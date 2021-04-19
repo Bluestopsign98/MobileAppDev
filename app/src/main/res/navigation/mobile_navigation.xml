@@ -15,20 +15,16 @@
         android:id="@+id/nav_gallery"
         android:name="com.example.budgetapp.ui.list.ListFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_list" >
-        <action
-            android:id="@+id/action_nav_gallery_to_entryDetailsActivity"
-            app:destination="@id/entryDetailsActivity" />
-    </fragment>
+        tools:layout="@layout/fragment_list" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.budgetapp.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
-    <activity
-        android:id="@+id/entryDetailsActivity"
-        android:name="com.example.budgetapp.ui.EntryDetailsActivity"
-        android:label="activity_entry_details"
-        tools:layout="@layout/activity_entry_details" />
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.budgetapp.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
