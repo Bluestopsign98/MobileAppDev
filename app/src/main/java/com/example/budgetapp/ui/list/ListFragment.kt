@@ -86,11 +86,11 @@ class ListFragment : Fragment() {
     return transactions
 
   }
-  fun Nav(){
-    val navID = R.id.action_nav_gallery_to_entryDetailsActivity
-    var navController = this.findNavController()
-    navController.navigate(navID)
-  }
+//  fun Nav(){
+//    val navID = R.id.action_nav_gallery_to_entryDetailsActivity
+//    var navController = this.findNavController()
+//    navController.navigate(navID)
+//  }
 
 
 }

@@ -39,7 +39,6 @@ class MyRecyclerAdapter(private val transactionList: ArrayList<Transaction>): Re
         val transactionAmount = itemView.findViewById<TextView>(R.id.transaction_amount)
         val transactionImage = itemView.findViewById<ImageView>(R.id.dollar_image)
         val transactionDate = itemView.findViewById<TextView>(R.id.transaction_date)
-        
 
         init {
             itemView.setOnClickListener {
@@ -49,6 +48,13 @@ class MyRecyclerAdapter(private val transactionList: ArrayList<Transaction>): Re
 
                 //val nav = ListFragment()
                 //nav.Nav(this)
+
+                val context = itemView.context
+
+                val myIntent = Intent(context, EntryDetailsActivity::class.java)
+                myIntent.putExtra("TransactionID", transactionList[adapterPosition].id)
+                context.startActivity(myIntent)
+
             }
 
 

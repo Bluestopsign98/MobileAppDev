@@ -19,9 +19,6 @@
         <action
             android:id="@+id/action_nav_gallery_to_entryDetailsActivity"
             app:destination="@id/entryDetailsActivity" />
-        <action
-            android:id="@+id/action_nav_gallery_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
     </fragment>
 
     <fragment
@@ -34,9 +31,4 @@
         android:name="com.example.budgetapp.ui.EntryDetailsActivity"
         android:label="activity_entry_details"
         tools:layout="@layout/activity_entry_details" />
-    <fragment
-        android:id="@+id/detailsFragment"
-        android:name="com.example.budgetapp.ui.DetailsFragment"
-        android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
 </navigation>

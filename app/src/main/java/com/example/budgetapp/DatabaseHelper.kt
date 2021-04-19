@@ -127,6 +127,16 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             val cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null)
             return cursor
         }
+
+
+    fun getDataByID(id : Int) : Cursor {
+
+        // Gets the data repository in write mode
+        val db = this.writableDatabase
+
+        val cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE `ID` = " + id, null)
+        return cursor
+    }
 }
 
 
