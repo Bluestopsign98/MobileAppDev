@@ -34,14 +34,12 @@ class ListFragment : Fragment() {
     listViewModel = ViewModelProvider(this).get(ListViewModel::class.java)
     val root = inflater.inflate(R.layout.fragment_list, container, false)
     //val textView: TextView = root.findViewById(R.id.text_gallery)
-
     // Store the the recyclerView widget in a variable
     val recyclerView = root.findViewById<RecyclerView>(R.id.my_recyler_view)
 
 
     // specify an viewAdapter for the dataset (we use dummy data containing 20 contacts)
     recyclerView.adapter = MyRecyclerAdapter(retrieveDatabaseData())
-
     // use a linear layout manager, you can use different layouts as well
     recyclerView.layoutManager = LinearLayoutManager(activity)
 

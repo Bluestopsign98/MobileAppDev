@@ -37,7 +37,7 @@ class AddEntryActivity : AppCompatActivity() {
 
         // --- Add new entry to database ---
         try {
-            dbHelper.insertData(name_details_id.text.toString(), amount_details_id.text.toString(), date_details_id.text.toString(), desc_details_id.text.toString())
+            dbHelper.insertData(name_details_id.text.toString(), amount_details_id.text.toString(), date_details_id.text.toString(), desc_details_id.text.toString(), "category.toString()")
             Log.d(TAG, "submitEntry: success?")
         } catch (e: Exception) {
             Log.e(TAG, "error: $e")
