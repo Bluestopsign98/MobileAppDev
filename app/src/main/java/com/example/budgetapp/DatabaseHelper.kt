@@ -32,6 +32,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val DATE = "date"
         val DESCRIPTION = "description"
         val CATEGORY = "category"
+        val INCOME = "incomeBoolean"
 
     }
 
@@ -46,10 +47,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             "CREATE TABLE ${TABLE_NAME} (" +
                     "${_ID} INTEGER PRIMARY KEY," +
                     "${NAME} TEXT," +
-                    "${AMOUNT} TEXT," +
+                    "${AMOUNT} FLOAT," +
                     "${DATE} TEXT," +
                     "${DESCRIPTION} TEXT," +
-                    "${CATEGORY} TEXT)"
+                    "${CATEGORY} TEXT," +
+                    "${INCOME} BOOLEAN)"
         db?.execSQL(SQL_CREATE_TABLE)
     }
 
@@ -68,7 +70,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     /**
      * our insertData() method allows to insert data to SQLIte database.
      */
-    fun insertData(name: String, amount: String, date: String, desc: String = "No description provided", category:String) {
+    fun insertData(name: String, amount: Float, date: String, desc: String = "No description provided", category: String, income: Boolean) {
 
         // Gets the data repository in write mode
         val db = this.writableDatabase
@@ -80,6 +82,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         contentValues.put(DATE, date)
         contentValues.put(DESCRIPTION, desc)
         contentValues.put(CATEGORY, category)
+        contentValues.put(INCOME, income)
         // Insert the new row
         db.insert(TABLE_NAME, null, contentValues)
     }
@@ -87,7 +90,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     /**
      * our updateData() methods allows to update a row with new field values.
      */
-    fun updateData(id: String, name: String, amount: String, date: String, desc: String = "No description provided", category:String): Boolean {
+    fun updateData(id: String, name: String, amount: Float, date: String, desc: String = "No description provided", category: String, income: Boolean ): Boolean {
 
         // Gets the data repository in write mode
         val db = this.writableDatabase
@@ -99,7 +102,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         contentValues.put(AMOUNT, amount)
         contentValues.put(DATE, date)
         contentValues.put(DESCRIPTION, desc)
-        contentValues.put(CATEGORY, desc)
+        contentValues.put(CATEGORY, category)
+        contentValues.put(INCOME, income)
         // Which row to update, based on id
         db.update(TABLE_NAME, contentValues, "ID = ?", arrayOf(id))
         return true
@@ -126,6 +130,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             val db = this.writableDatabase
             // Cursor iterates through one row at a time in the results
             val cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null)
+
             return cursor
         }
 

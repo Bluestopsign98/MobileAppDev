@@ -26,7 +26,6 @@ import com.example.budgetapp.ui.list.ListFragment
 
 class MyRecyclerAdapter(private val transactionList: ArrayList<Transaction>): RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>() {
 
-    var count = 1 //This variable is used for just testing purpose to understand how RecyclerView works
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -44,7 +43,7 @@ class MyRecyclerAdapter(private val transactionList: ArrayList<Transaction>): Re
             itemView.setOnClickListener {
                 //val selectedItem = adapterPosition
                 val transactionID = transactionList[adapterPosition].name
-                Toast.makeText(itemView.context, "You clicked on $transactionID", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(itemView.context, "You clicked on $transactionID", Toast.LENGTH_SHORT).show()
 
                 //val nav = ListFragment()
                 //nav.Nav(this)
@@ -76,7 +75,6 @@ class MyRecyclerAdapter(private val transactionList: ArrayList<Transaction>): Re
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         // Inflate a layout from our XML (row_item.XML) and return the holder
 
-        Log.d(TAG, "onCreateViewHolder: ${count++}")
 
         // create a new view
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_row_layout, parent, false)
@@ -98,7 +96,7 @@ class MyRecyclerAdapter(private val transactionList: ArrayList<Transaction>): Re
         holder.transactionName.text = currentItem.name
         holder.transactionDate.text = currentItem.date
 
-        if(currentItem.amount.toDouble() < 0.00 ){
+        if(currentItem.amount < 0.0 ){
             holder.transactionAmount.setTextColor(Color.RED)
             holder.transactionImage.setColorFilter(Color.RED)
         }else{

@@ -36,22 +36,25 @@ class HomeFragment : Fragment() {
   }
 
   private fun generateSummary(view: View)
-  {  var totalExpenses = 0
-    var totalIncome = 0
+  {  var totalExpenses = 0.0
+    var totalIncome = 0.0
    //To access your database, instantiate your subclass of SQLiteOpenHelper
     val dbHelper = DatabaseHelper(requireContext())
     // --- Cursor is used to iterate though the result of the database get call
     val cursor = dbHelper.viewAllData
     while (cursor.moveToNext()) {
-      if(cursor.getString(2).toInt() >= 0) //A positive transaction, add to income total
+      if(cursor.getString(2).toFloat() >= 0) //A positive transaction, add to income total
       {
-        totalIncome += cursor.getString(2).toInt()
+        totalIncome += cursor.getString(2).toFloat()
       }
       else //A negative transaction
       {
-        totalExpenses += cursor.getString(2).toInt()
+        totalExpenses += cursor.getString(2).toFloat()
       }
     }
+
+    cursor.close()
+    dbHelper.close()
     totalExpenses *= -1
     var diff = totalIncome-totalExpenses
     var moneyPref = ""
@@ -61,7 +64,7 @@ class HomeFragment : Fragment() {
     }
     else {
       if (diff < 0)
-        moneyPref = "-"
+        moneyPref = ""
     }
     var TIShort = totalIncome
     var TEShort = totalExpenses
