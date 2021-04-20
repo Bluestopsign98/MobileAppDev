@@ -25,11 +25,12 @@ import com.example.budgetapp.ui.Transaction
 class ListFragment : Fragment() {
 
   private lateinit var listViewModel: ListViewModel
+  lateinit var dbHelper: DatabaseHelper
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+          inflater: LayoutInflater,
+          container: ViewGroup?,
+          savedInstanceState: Bundle?
   ): View? {
     listViewModel = ViewModelProvider(this).get(ListViewModel::class.java)
     val root = inflater.inflate(R.layout.fragment_list, container, false)
@@ -37,6 +38,9 @@ class ListFragment : Fragment() {
     // Store the the recyclerView widget in a variable
     val recyclerView = root.findViewById<RecyclerView>(R.id.my_recyler_view)
 
+
+    Log.d(TAG, "onCreateView: ")
+    dbHelper = DatabaseHelper(requireContext())
 
     // specify an viewAdapter for the dataset (we use dummy data containing 20 contacts)
     recyclerView.adapter = MyRecyclerAdapter(retrieveDatabaseData())
@@ -64,32 +68,47 @@ class ListFragment : Fragment() {
 
   }
 
-
-
   // A helper function to create specified amount of dummy contact data
   private fun retrieveDatabaseData() : ArrayList<Transaction>{
 
+    val dbHelper = DatabaseHelper(requireContext())
     val transactions = ArrayList<Transaction>()
 
     //To access your database, instantiate your subclass of SQLiteOpenHelper
-    val dbHelper = DatabaseHelper(requireContext())
     // --- Cursor is used to iterate though the result of the database get call
     val cursor = dbHelper.viewAllData
     while (cursor.moveToNext()) {
-      var currentTransaction = Transaction(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(4), cursor.getString(3),R.drawable.dollar_sign_symbol)
+      var currentTransaction = Transaction(cursor.getInt(0),cursor.getString(1),cursor.getFloat(2),cursor.getString(4), cursor.getString(3), cursor.getString(5), cursor.getInt(6) > 0, R.drawable.dollar_sign_symbol)
       transactions.add(currentTransaction)
     }
+
+    cursor.close()
+
 
     // return the list of contacts
     return transactions
 
   }
-//  fun Nav(){
-//    val navID = R.id.action_nav_gallery_to_entryDetailsActivity
-//    var navController = this.findNavController()
-//    navController.navigate(navID)
+
+//  @Override
+//  override fun onStop() {
+//    super.onStop()
+//    dbHelper.close()
+//    Log.d(TAG, "onStop: ")
+//
 //  }
 
 
-}
+  @Override
+  override fun onDestroyView() {
+    super.onDestroyView()
+    Log.d(TAG, "onDestroyview: ")
+    dbHelper.close()
+    super.onDestroy()
+    Log.d(TAG, "onDestroy: 2")
+  }
 
+
+
+
+}

@@ -4,36 +4,26 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import com.example.budgetapp.DatabaseHelper
 import com.example.budgetapp.MainActivity
 import com.example.budgetapp.R
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_add_entry.*
+import kotlinx.android.synthetic.main.activity_add_entry.amount_details_id
+import kotlinx.android.synthetic.main.activity_add_entry.date_details_id
+import kotlinx.android.synthetic.main.activity_add_entry.desc_details_id
+import kotlinx.android.synthetic.main.activity_add_entry.name_details_id
+import kotlinx.android.synthetic.main.activity_entry_details.*
+import java.util.ArrayList
 
 private const val TAG = "DetailsActivity"
 
 class EntryDetailsActivity : AppCompatActivity() {
-<<<<<<< Updated upstream
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_entry_details)
-        
-        val transactionID = intent.getIntExtra("TransactionID", 0)
-        Log.d(TAG, "onCreate: $transactionID")
-
-        val dbHelper = DatabaseHelper(this)
-        // --- Cursor is used to iterate though the result of the database get call
-        val cursor = dbHelper.getDataByID(transactionID)
-
-        cursor.moveToNext()
-        var currentTransaction = Transaction(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(4), cursor.getString(3),R.drawable.dollar_sign_symbol)
-        Log.d(TAG, "onCreate: $currentTransaction")
-
-        name_details_id.setText(currentTransaction.name)
-        amount_details_id.setText(currentTransaction.amount)
-        desc_details_id.setText(currentTransaction.description)
-        date_details_id.setText(currentTransaction.date)
-=======
-
     val dbHelper = DatabaseHelper(this)
     var categorySelected = ""
     var income = false
@@ -48,8 +38,7 @@ class EntryDetailsActivity : AppCompatActivity() {
         transactionID = intent.getIntExtra("TransactionID", 0)
         Log.d(TAG, "onCreate HELLO: $transactionID")
 
-
-//         --- Cursor is used to iterate though the result of the database get call
+        // --- Cursor is used to iterate though the result of the database get call
         val cursor = dbHelper.getDataByID(transactionID)
 
         cursor.moveToNext()
@@ -77,11 +66,8 @@ class EntryDetailsActivity : AppCompatActivity() {
 
         categorySelected = currentTransaction.category
         income = currentTransaction.income
->>>>>>> Stashed changes
 
-
-<<<<<<< Updated upstream
-=======
+        retrieveCategories()
         configureSpinner()
 
         var i = 0
@@ -105,15 +91,11 @@ class EntryDetailsActivity : AppCompatActivity() {
         }
 
         //category_details_id.setSelection() = categorySelected
->>>>>>> Stashed changes
+
 
     }
     
 
-<<<<<<< Updated upstream
-
-
-=======
 
     fun deleteEntry(view: View) {
 
@@ -144,13 +126,13 @@ class EntryDetailsActivity : AppCompatActivity() {
         // --- Add new entry to database ---
         try {
             dbHelper.updateData(
-                transactionID.toString(),
-                name_details_id.text.toString(),
-                amount_details_id.text.toString().toFloat(),
-                date_details_id.text.toString(),
-                desc_details_id.text.toString(),
-                categorySelected,
-                income
+                    transactionID.toString(),
+                    name_details_id.text.toString(),
+                    amount_details_id.text.toString().toFloat(),
+                    date_details_id.text.toString(),
+                    desc_details_id.text.toString(),
+                    categorySelected,
+                    income
             )
         } catch (e: Exception) {
             Log.e(TAG, "error: $e")
@@ -234,6 +216,6 @@ class EntryDetailsActivity : AppCompatActivity() {
             }
         }
     }
->>>>>>> Stashed changes
+
 
 }
