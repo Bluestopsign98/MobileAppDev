@@ -19,6 +19,7 @@ import java.util.*
 
 private const val TAG = "SettingsActivity"
 
+// --- THIS IS NOT BEING USED!!!! USED SETTINGS FRAGMENT INSTEAD ---
 class SettingsActivity : AppCompatActivity() {
 
 

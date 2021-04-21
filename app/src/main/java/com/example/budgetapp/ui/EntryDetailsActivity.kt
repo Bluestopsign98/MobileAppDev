@@ -95,10 +95,7 @@ class EntryDetailsActivity : AppCompatActivity() {
 
     }
     
-
-
     fun deleteEntry(view: View) {
-
         // --- Add new entry to database ---
         try {
             dbHelper.deleteData(

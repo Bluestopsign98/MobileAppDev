@@ -19,7 +19,7 @@ import com.example.budgetapp.ui.AddEntryActivity
 import com.example.budgetapp.ui.SettingsActivity
 import com.google.gson.Gson
 
-const val TAG = "MainActivity"
+private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 

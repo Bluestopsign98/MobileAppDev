@@ -90,15 +90,6 @@ class ListFragment : Fragment() {
 
   }
 
-//  @Override
-//  override fun onStop() {
-//    super.onStop()
-//    dbHelper.close()
-//    Log.d(TAG, "onStop: ")
-//
-//  }
-
-
   @Override
   override fun onDestroyView() {
     super.onDestroyView()
