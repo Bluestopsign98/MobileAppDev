@@ -77,6 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:onClick="cancel"
         android:text="Cancel"
         app:icon="@drawable/abc_vector_test"
         app:layout_constraintEnd_toStartOf="@+id/submit_details_button_id"

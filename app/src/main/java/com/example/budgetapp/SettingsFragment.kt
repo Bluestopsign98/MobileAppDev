@@ -1,8 +1,6 @@
 package com.example.budgetapp
 
-import android.content.Context
 import android.content.Intent
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.*
 import java.util.ArrayList
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.example.budgetapp.ui.home.HomeViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_add_entry.*
@@ -37,12 +33,15 @@ class SettingsFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
         retrieveCategories()
 
+        // -- Setup listView ---
         val myLV = root.findViewById<ListView>(R.id.categoryListView)
         myAdapter = ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_list_item_1, currentList)
 
+        // -- Initialize list contents ---
         updateList()
         myLV.adapter = myAdapter
 
+        // --- Add button onClick, Adds new category to list and updates listview ---
         var button = root.findViewById<Button>(R.id.addButton)
         button.setOnClickListener { view ->
             if (!categoryInput.text.isNullOrEmpty()){
@@ -54,6 +53,8 @@ class SettingsFragment : Fragment() {
 
                 refreshListview()
                 myLV.adapter = myAdapter
+
+                categoryInput.text.clear()
 
             }else{
                 Toast.makeText(this.requireContext(), "Cannot add an empty category string!", Toast.LENGTH_SHORT).show()
@@ -72,14 +73,14 @@ class SettingsFragment : Fragment() {
         }
 
 
+        // --- category switcher onClick, changes the displayed list ---
         val ts = root.findViewById<Switch>(R.id.typeSwitch)
-        ts.setOnClickListener()
-        {
-            categorySwitcher(root)
+        ts.setOnClickListener() {
+            categorySwitcher()
             myLV.adapter = myAdapter
         }
 
-
+        // --- Listview onLockClick, deletes the selected category from list ---
         myLV.setOnItemLongClickListener { parent, view, position, id ->
             val selectedItem = parent.getItemAtPosition(position).toString()
             if(income){
@@ -96,16 +97,15 @@ class SettingsFragment : Fragment() {
             return@setOnItemLongClickListener true
         }
 
-
         return root
     }
 
-    // refresh the listview, for use after listview contents change
+    // --- refresh the listview, for use after listview contents change ---
     private fun refreshListview(){
         myAdapter = ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_list_item_1, currentList)
     }
 
-
+    // --- Retrieve catergory lists from Shared Preferences ---
     private fun retrieveCategories() {
         Log.d(TAG, "retrieveCategories: ")
         
@@ -139,14 +139,15 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    fun categorySwitcher(view: View){
+    // --- Switch list contents based on income vs expense switcher ---
+    private fun categorySwitcher(){
         // --- Set income boolean to match the switch contents ---
         income = typeSwitch.isChecked
         updateList()
     }
 
-    private fun updateList()
-    {
+    // --- display new list in listview ---
+    private fun updateList(){
         if(income)
         {
             currentList = incomeCategoriesList
@@ -158,7 +159,7 @@ class SettingsFragment : Fragment() {
         refreshListview()
     }
 
-    // save current state
+    // --- save current category lists to shared preferences ---
     private fun saveData(){
         val sharedPreferences = this.getActivity()?.getSharedPreferences("BudgetApp", AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPreferences?.edit()
@@ -167,10 +168,10 @@ class SettingsFragment : Fragment() {
         val gson = Gson()
         // toJson() method serializes the specified object into its equivalent Json representation.
         val updatedIncomeList = gson.toJson(incomeCategoriesList)
-        val updatedExpenseList = gson.toJson(incomeCategoriesList)
+        val updatedExpenseList = gson.toJson(expenseCategoriesList)
         // Put the  Json representation, which is a string, into sharedPreferences
         editor?.putString("IncomeCategories", updatedIncomeList )
-        editor?.putString("ExpenseCategories", updatedIncomeList )
+        editor?.putString("ExpenseCategories", updatedExpenseList)
         // Apply the changes
         editor?.apply()
     }
