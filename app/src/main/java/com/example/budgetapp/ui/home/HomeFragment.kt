@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
     }
     else {
       if (diff < 0)
-        moneyPref = "-"
+        moneyPref = ""
     }
     var TIShort = totalIncome
     var TEShort = totalExpenses

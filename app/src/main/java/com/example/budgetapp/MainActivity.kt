@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.budgetapp.R.id.nav_host_fragment
 import com.example.budgetapp.ui.AddEntryActivity
-import com.example.budgetapp.ui.SettingsActivity
 import com.google.gson.Gson
 
 private const val TAG = "MainActivity"
@@ -126,12 +125,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // not being used currently
-    fun navToSettings(view: View){
-        // --- go to settings activity ---
-        val myIntent = Intent(this, SettingsActivity::class.java)
-        startActivity(myIntent)
-    }
 
 
 }

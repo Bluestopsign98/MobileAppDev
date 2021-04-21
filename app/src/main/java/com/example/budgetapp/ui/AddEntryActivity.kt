@@ -51,9 +51,16 @@ class AddEntryActivity : AppCompatActivity() {
     }
 
     fun submitEntry(view: View){
+
+        var amount = amount_details_id.text.toString().toFloat()
+        if(income){
+        }else{
+            amount *= -1
+        }
+
         // --- Add new entry to database ---
         try {
-            dbHelper.insertData(name_details_id.text.toString(), amount_details_id.text.toString().toFloat(), date_details_id.text.toString(), desc_details_id.text.toString(), categorySelected,income)
+            dbHelper.insertData(name_details_id.text.toString(), amount, date_details_id.text.toString(), desc_details_id.text.toString(), categorySelected,income)
             Log.d(TAG, "submitEntry: success?")
         } catch (e: Exception) {
             Log.e(TAG, "error: $e")
