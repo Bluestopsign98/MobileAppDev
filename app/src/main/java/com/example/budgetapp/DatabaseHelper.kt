@@ -144,12 +144,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return cursor
     }
 
-    fun getDataByCategory(category:String) : Cursor {
+    fun getDataByCategory(category:String, incomeBool:Boolean) : Cursor {
 
         // Gets the data repository in write mode
         val db = this.writableDatabase
 
-        val cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE `CATEGORY` = " + category, null)
+        val cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE `CATEGORY` = " +  "'" + category +"' AND `incomeBoolean` = " + incomeBool, null)
         return cursor
     }
 

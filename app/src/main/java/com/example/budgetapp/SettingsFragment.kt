@@ -18,8 +18,7 @@ import kotlinx.android.synthetic.main.fragment_settings.*
 private const val TAG = "SettingsFragment"
 
 class SettingsFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
+
     private var incomeCategoriesList = ArrayList<String>()
     private var expenseCategoriesList = ArrayList<String>()
     private var income : Boolean = false
