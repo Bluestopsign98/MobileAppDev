@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,8 @@ import com.koushikdutta.ion.Ion
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONObject
 import com.squareup.picasso.Picasso
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class HomeFragment : Fragment() {
 
@@ -36,6 +39,8 @@ class HomeFragment : Fragment() {
   private fun generateSummary(view: View)
   {  var totalExpenses = 0.0
     var totalIncome = 0.0
+
+
    //To access your database, instantiate your subclass of SQLiteOpenHelper
     val dbHelper = DatabaseHelper(requireContext())
     // --- Cursor is used to iterate though the result of the database get call
@@ -50,8 +55,22 @@ class HomeFragment : Fragment() {
         totalExpenses += cursor.getFloat(2)
       }
     }
+
+    // --- Enables rounding to 2 decimal places ---
+    val df = DecimalFormat("#.##")
+    df.roundingMode = RoundingMode.CEILING
+
+    // --- Round totals to 2 decimal places ---
+    totalExpenses = df.format(totalExpenses).toDouble()
+    totalIncome = df.format(totalIncome).toDouble()
+
+    // --- set totalExpenses to negative
     totalExpenses *= -1
+
+    // --- Calculate the difference and round to 2 decimal places
     var diff = totalIncome-totalExpenses
+    diff = df.format(diff).toDouble()
+
     var moneyPref = ""
     if(diff > 0.0)
     {
@@ -62,12 +81,16 @@ class HomeFragment : Fragment() {
         moneyPref = ""
     }
     var TIShort = totalIncome
+
     var TEShort = totalExpenses
     while(TEShort > 100 || TIShort > 100)
     {
       TEShort /= 10
       TIShort /= 10
     }
+
+
+
     val chart= view.findViewById<ImageView>(R.id.incomeSummaryChart)
     Picasso.get().load("https://image-charts.com/chart?chco=95f991%2CF99191&chd=t%3A$TIShort%2C$TEShort&chl=$totalIncome%7C$totalExpenses&chli=$moneyPref$diff&chlps=font.size%2C64&chs=800x800&cht=pd&chof=.png").into(chart)
 
