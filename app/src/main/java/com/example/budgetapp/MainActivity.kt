@@ -111,6 +111,7 @@ class MainActivity : AppCompatActivity() {
             // --- Initial list of categories
             val expenseCatList = ArrayList<String>()
             expenseCatList.add("Groceries")
+            expenseCatList.add("Investments")
             expenseCatList.add("Gift")
             expenseCatList.add("Subscription")
             expenseCatList.add("Payment")

@@ -68,7 +68,43 @@ class HomeFragment : Fragment() {
       TEShort /= 10
       TIShort /= 10
     }
-    val chart= view.findViewById<ImageView>(R.id.incomeSummaryChart)
+
+    var labels = ""
+    var data = ""
+      labels += "', "
+      data += "$, "
+
+
+    var chartLink =" https://quickchart.io/chart?c={ " +
+            "   type: 'doughnut', " +
+            "   data: { " +
+            "     datasets: [ " +
+            "       { " +
+            "         data: [$totalIncome, $totalExpenses, $totalInvestments], " +
+            "         backgroundColor: [ " +
+            "           'rgb(72, 245, 44)', " +
+            "           'rgb(236, 64, 45)', " +
+            "           'rgb(255, 205, 86)', " +
+            "         ], " +
+            "         borderColor: '#5c5c5c', " +
+            "         label: 'Dataset 1', " +
+            "       }, " +
+            "     ], " +
+            "     labels: ['Income', 'Expenses', 'Inventments',], " +
+            "   }, " +
+            "   options: { " +
+            "     title: { " +
+            "       fontSize: 15, " +
+            "       display: true, " +
+            "       text: 'Financial Summary', " +
+            "     }, " +
+            "   }, " +
+            " } " +
+            "  "
+
+
+
+  val chart= view.findViewById<ImageView>(R.id.incomeSummaryChart)
     Picasso.get().load("https://image-charts.com/chart?chco=95f991%2CF99191&chd=t%3A$TIShort%2C$TEShort&chl=$totalIncome%7C$totalExpenses&chli=$moneyPref$diff&chlps=font.size%2C64&chs=800x800&cht=pd&chof=.png").into(chart)
 
   }

@@ -82,6 +82,8 @@ class SettingsFragment : Fragment() {
         // --- Listview onLockClick, deletes the selected category from list ---
         myLV.setOnItemLongClickListener { parent, view, position, id ->
             val selectedItem = parent.getItemAtPosition(position).toString()
+            if(selectedItem == "Investments")
+                return@setOnItemLongClickListener true
             if(income){
                 incomeCategoriesList.removeAt(position)
             }else{
@@ -172,7 +174,7 @@ class SettingsFragment : Fragment() {
         editor?.putString("IncomeCategories", updatedIncomeList )
         editor?.putString("ExpenseCategories", updatedExpenseList)
         // Apply the changes
-        editor?.apply()
+        editor?.commit()
     }
 
 }
