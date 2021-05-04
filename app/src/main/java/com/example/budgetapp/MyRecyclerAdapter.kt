@@ -98,7 +98,7 @@ class MyRecyclerAdapter(private val transactionList: ArrayList<Transaction>): Re
         holder.transactionName.text = currentItem.name
         holder.transactionDate.text = currentItem.date
 
-        if(currentItem.amount.toDouble() < 0.00 ){
+        if(currentItem.amount < 0.0 ){
             holder.transactionAmount.setTextColor(Color.RED)
             holder.transactionImage.setColorFilter(Color.RED)
         }else{

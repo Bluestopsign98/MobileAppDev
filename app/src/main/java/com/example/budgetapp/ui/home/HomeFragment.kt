@@ -22,21 +22,23 @@ class HomeFragment : Fragment() {
   private lateinit var homeViewModel: HomeViewModel
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+          inflater: LayoutInflater,
+          container: ViewGroup?,
+          savedInstanceState: Bundle?
   ): View? {
     homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-     val root = inflater.inflate(R.layout.fragment_home, container, false)
+    val root = inflater.inflate(R.layout.fragment_home, container, false)
     generateSummary(root)
 
     return root
   }
 
   private fun generateSummary(view: View)
-  {  var totalExpenses = 0.0
+  {
+    var totalExpenses = 0.0
     var totalIncome = 0.0
-   //To access your database, instantiate your subclass of SQLiteOpenHelper
+    var totalInvestments = 0.0
+    //To access your database, instantiate your subclass of SQLiteOpenHelper
     val dbHelper = DatabaseHelper(requireContext())
     // --- Cursor is used to iterate though the result of the database get call
     val cursor = dbHelper.viewAllData
@@ -47,7 +49,15 @@ class HomeFragment : Fragment() {
       }
       else //A negative transaction
       {
-        totalExpenses += cursor.getFloat(2)
+        if(cursor.getString(5) == "Investments" || cursor.getString(5) == "Investment")
+        {
+          totalInvestments += cursor.getFloat(2)
+        }
+        else
+        {
+          totalExpenses += cursor.getFloat(2)
+        }
+
       }
     }
     totalExpenses *= -1
@@ -71,8 +81,8 @@ class HomeFragment : Fragment() {
 
     var labels = ""
     var data = ""
-      labels += "', "
-      data += "$, "
+    labels += "', "
+    data += "$, "
 
 
     var chartLink =" https://quickchart.io/chart?c={ " +
@@ -104,7 +114,7 @@ class HomeFragment : Fragment() {
 
 
 
-  val chart= view.findViewById<ImageView>(R.id.incomeSummaryChart)
+    val chart= view.findViewById<ImageView>(R.id.incomeSummaryChart)
     Picasso.get().load("https://image-charts.com/chart?chco=95f991%2CF99191&chd=t%3A$TIShort%2C$TEShort&chl=$totalIncome%7C$totalExpenses&chli=$moneyPref$diff&chlps=font.size%2C64&chs=800x800&cht=pd&chof=.png").into(chart)
 
   }

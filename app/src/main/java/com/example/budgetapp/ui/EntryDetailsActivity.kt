@@ -24,21 +24,23 @@ import java.util.ArrayList
 private const val TAG = "DetailsActivity"
 
 class EntryDetailsActivity : AppCompatActivity() {
+
     val dbHelper = DatabaseHelper(this)
     var categorySelected = ""
     var income = false
     private var transactionID = -1
+
     private var incomeCategoriesList = ArrayList<String>()
     private var expenseCategoriesList = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entry_details)
-
         transactionID = intent.getIntExtra("TransactionID", 0)
         Log.d(TAG, "onCreate HELLO: $transactionID")
 
-        // --- Cursor is used to iterate though the result of the database get call
+
+//         --- Cursor is used to iterate though the result of the database get call
         val cursor = dbHelper.getDataByID(transactionID)
 
         cursor.moveToNext()
@@ -90,10 +92,9 @@ class EntryDetailsActivity : AppCompatActivity() {
 
         }
 
-        //category_details_id.setSelection() = categorySelected
-
 
     }
+
     
     fun deleteEntry(view: View) {
         // --- Add new entry to database ---
@@ -142,14 +143,7 @@ class EntryDetailsActivity : AppCompatActivity() {
         startActivity(myIntent)
     }
 
-    fun cancel(view: View) {
 
-       // dbHelper.close()
-
-        // --- Return to Overview ---
-        val myIntent = Intent(this, MainActivity::class.java)
-        startActivity(myIntent)
-    }
 
 
     private fun retrieveCategories() {
@@ -213,6 +207,19 @@ class EntryDetailsActivity : AppCompatActivity() {
             }
         }
     }
+
+
+    fun cancel(view: View) {
+
+        // dbHelper.close()
+
+        // --- Return to Overview ---
+        val myIntent = Intent(this, MainActivity::class.java)
+        startActivity(myIntent)
+    }
+
+
+
 
 
 }

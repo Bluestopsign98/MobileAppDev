@@ -23,7 +23,7 @@ class AddEntryActivity : AppCompatActivity() {
 
     //To access your database, instantiate your subclass of SQLiteOpenHelper
     private val dbHelper = DatabaseHelper(this)
-    
+
     // --- variable to determine if the new entry is and income or an expense
     private var income = false
     private var categorySelected = ""
@@ -40,8 +40,6 @@ class AddEntryActivity : AppCompatActivity() {
         val sdf = SimpleDateFormat("MM/dd/yyyy")
         val currentDateandTime = sdf.format(Date())
         date_details_id.setText(currentDateandTime)
-
-
 
         retrieveCategories()
 
@@ -60,12 +58,13 @@ class AddEntryActivity : AppCompatActivity() {
 
         // --- Add new entry to database ---
         try {
-            dbHelper.insertData(name_details_id.text.toString(), amount, date_details_id.text.toString(), desc_details_id.text.toString(), categorySelected,income)
+            dbHelper.insertData(name_details_id.text.toString(), amount, date_details_id.text.toString(), desc_details_id.text.toString(), categorySelected, income)
             Log.d(TAG, "submitEntry: success?")
         } catch (e: Exception) {
             Log.e(TAG, "error: $e")
         }
 
+        dbHelper.close()
 
         // --- Return to Overview ---
         val myIntent = Intent(this, MainActivity::class.java)
@@ -73,6 +72,9 @@ class AddEntryActivity : AppCompatActivity() {
     }
 
     fun cancel(view: View){
+
+        dbHelper.close()
+
         // --- Return to Overview ---
         val myIntent = Intent(this, MainActivity::class.java)
         startActivity(myIntent)
@@ -82,7 +84,7 @@ class AddEntryActivity : AppCompatActivity() {
     fun incomeVSExpenseSwitch(view: View){
         // --- Set income boolean to match the switch contents ---
         income = income_vs_expense_id.isChecked
-        Log.d(TAG, "incomeVSExpenseSwitch: $income")
+        //Log.d(TAG, "incomeVSExpenseSwitch: $income")
 
         // --- Update category dropdown ---
         configureSpinner()
