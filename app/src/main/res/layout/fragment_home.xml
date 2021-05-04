@@ -21,11 +21,12 @@
 
     <ImageView
         android:id="@+id/incomeSummaryChart"
-        android:layout_width="800px"
-        android:layout_height="800px"
-        android:layout_marginTop="16dp"
+        android:layout_width="850px"
+        android:layout_height="850px"
+        android:layout_marginTop="28dp"
         android:src="@drawable/dollar_sign_symbol"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
