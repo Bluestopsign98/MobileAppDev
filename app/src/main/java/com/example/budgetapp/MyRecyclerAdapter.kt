@@ -61,11 +61,11 @@ class MyRecyclerAdapter(private val transactionList: ArrayList<Transaction>): Re
             // Set onLongClickListener to show a toast message and remove the selected row item from the list
             // Make sure to change the  MyViewHolder class to inner class to get a reference to an object of outer class
             itemView.setOnLongClickListener {
-
-                val selectedItem = adapterPosition
-                transactionList.removeAt(selectedItem)
-                notifyItemRemoved(selectedItem)
-                Toast.makeText(itemView.context, "Long press, deleting $selectedItem", Toast.LENGTH_SHORT).show()
+                //do Nothing
+//                val selectedItem = adapterPosition
+//                transactionList.removeAt(selectedItem)
+//                notifyItemRemoved(selectedItem)
+//                Toast.makeText(itemView.context, "Long press, deleting $selectedItem", Toast.LENGTH_SHORT).show()
 
                 return@setOnLongClickListener true
             }

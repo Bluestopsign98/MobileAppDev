@@ -93,7 +93,7 @@ class HomeFragment : Fragment() {
 
     var chartLink ="https://quickchart.io/chart?w=850&h=850&c=" + "{\n  \"type\": \"doughnut\",\n  \"data\": {\n    \"datasets\": [\n      {\n        \"data\": [\n          $totalIncome,\n          $totalExpenses,\n          $totalInvestments,\n        ],\n        \"backgroundColor\": [\n          \"rgb(72, 245, 44)\",\n          \"rgb(236, 64, 45)\",\n          \"rgb(255, 205, 86)\"\n        ],\n        \"borderColor\": \"%205c5c5c\",\n        \"label\": \"Dataset 1\"\n      }\n    ],\n    \"labels\": [\n      \"Income\",\n      \"Expenses\",\n      \"Inventments\"\n    ]\n  },\n  \"options\": {\n     " +
             "\"legend\": {\n" +
-            "      \"position\": 'top',\n" +
+            "      \"position\": 'bottom',\n" +
             "      \"labels\": {\n" +
             "        \"fontSize\": 50,\n" +
             "        \"fontStyle\": 'bold',\n" +
