@@ -32,6 +32,7 @@ class SlideshowFragment : Fragment(){
   lateinit var myAdapter: ArrayAdapter<String>
   private var expenseGraphList = ArrayList<String>()
   private var incomeGraphList = ArrayList<String>()
+  private lateinit var root: View
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -39,7 +40,7 @@ class SlideshowFragment : Fragment(){
     savedInstanceState: Bundle?
   ): View? {
     retrieveCategories()
-    val root = inflater.inflate(R.layout.category_chart, container, false)
+    root = inflater.inflate(R.layout.category_chart, container, false)
     retrieveCategories()
 
 
@@ -146,6 +147,7 @@ class SlideshowFragment : Fragment(){
     // --- Set income boolean to match the switch contents ---
     income = typeSwitch.isChecked
 
+    generateGraph(root)
     updateList()
   }
 
@@ -216,45 +218,66 @@ class SlideshowFragment : Fragment(){
   var incomecolor = "rgba(34,139,34 0.5)"
   var incomeBordercolor = "rgb(0,100,0)"
 
-
-    var chartLink = "https://quickchart.io/chart?w=303&h=303&bkg=%23ffffff&c={\n" +
-            "  \"type\": 'bar',\n" +
-            "  \"data\": {\n" +
-            "    \"labels\": [$incomeLabels,$labels],\n" +
-            "    \"datasets\": [\n" +
-            "      {\n" +
-            "        \"label\": 'Income',\n" +
-            "        \"backgroundColor\": '$incomecolor',\n" +
-            "        \"borderColor\": '$incomeBordercolor',\n" +
-            "        \"borderWidth\": 1,\n" +
-            "        \"data\": [$incomeData],\n" +
-            "      },\n" +
-
-             "      {\n" +
-            "        \"label\": 'Expenses',\n" +
-            "        \"backgroundColor\": '$expenseColor',\n" +
-            "        \"borderColor\": '$expenseBorderColor',\n" +
-            "        \"borderWidth\": 1,\n" +
-            "        \"data\": [$data],\n" +
-            "      }\n" +
-            "    ],\n" +
-            "  },\n" +
-            "  \"options\": {\n" +
-            "\n" +
-            "    \"plugins\": {\n" +
-            "      \"datalabels\": {\n" +
-            "        \"anchor\": 'center',\n" +
-            "        \"align\": 'center',\n" +
-            "        \"color\": '%23666',\n" +
-            "        \"font\": {\n" +
-            "          \"weight\": 'normal',\n" +
-            "        },\n" +
-            "      },\n" +
-            "    },\n" +
-            "  },\n" +
-            "}&format=.png"
-
-
+    var chartLink = ""
+    if(income){
+      chartLink = "https://quickchart.io/chart?w=303&h=303&bkg=%23ffffff&c={\n" +
+              "  \"type\": 'bar',\n" +
+              "  \"data\": {\n" +
+              "    \"labels\": [$incomeLabels],\n" +
+              "    \"datasets\": [\n" +
+              "      {\n" +
+              "        \"label\": 'Income',\n" +
+              "        \"backgroundColor\": '$incomecolor',\n" +
+              "        \"borderColor\": '$incomeBordercolor',\n" +
+              "        \"borderWidth\": 1,\n" +
+              "        \"data\": [$incomeData],\n" +
+              "      },\n" +
+              "    ],\n" +
+              "  },\n" +
+              "  \"options\": {\n" +
+              "\n" +
+              "    \"plugins\": {\n" +
+              "      \"datalabels\": {\n" +
+              "        \"anchor\": 'center',\n" +
+              "        \"align\": 'center',\n" +
+              "        \"color\": '%23666',\n" +
+              "        \"font\": {\n" +
+              "          \"weight\": 'normal',\n" +
+              "        },\n" +
+              "      },\n" +
+              "    },\n" +
+              "  },\n" +
+              "}&format=.png"
+    }else{
+      chartLink = "https://quickchart.io/chart?w=303&h=303&bkg=%23ffffff&c={\n" +
+              "  \"type\": 'bar',\n" +
+              "  \"data\": {\n" +
+              "    \"labels\": [$labels],\n" +
+              "    \"datasets\": [\n" +
+              "      {\n" +
+              "        \"label\": 'Income',\n" +
+              "        \"backgroundColor\": '$expenseColor',\n" +
+              "        \"borderColor\": '$expenseBorderColor',\n" +
+              "        \"borderWidth\": 1,\n" +
+              "        \"data\": [$data],\n" +
+              "      },\n" +
+              "    ],\n" +
+              "  },\n" +
+              "  \"options\": {\n" +
+              "\n" +
+              "    \"plugins\": {\n" +
+              "      \"datalabels\": {\n" +
+              "        \"anchor\": 'center',\n" +
+              "        \"align\": 'center',\n" +
+              "        \"color\": '%23666',\n" +
+              "        \"font\": {\n" +
+              "          \"weight\": 'normal',\n" +
+              "        },\n" +
+              "      },\n" +
+              "    },\n" +
+              "  },\n" +
+              "}&format=.png"
+    }
 
     val chart= view.findViewById<ImageView>(R.id.graphHolder)
     Picasso.get().load(chartLink).into(chart)

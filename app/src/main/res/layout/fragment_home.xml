@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="Budgeting:"
+                android:text="Budgeting: (Coming Soon)"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
@@ -118,15 +118,8 @@
 
             <TextView
                 android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="267dp"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="match_parent"
-                android:layout_height="267dp"
-                android:text="TextView" />
+                android:layout_width="399dp"
+                android:layout_height="243dp" />
 
         </LinearLayout>
     </ScrollView>

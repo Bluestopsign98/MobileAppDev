@@ -15,10 +15,10 @@
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Categories" />
+            android:title="Category Breakdown" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@android:drawable/ic_menu_manage"
-            android:title="Settings" />
+            android:title="Category Settings" />
     </group>
 </menu>
