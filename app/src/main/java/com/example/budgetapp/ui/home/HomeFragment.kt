@@ -91,14 +91,16 @@ class HomeFragment : Fragment() {
     data += "$, "
 
 
-    var chartLink ="https://quickchart.io/chart?w=850&h=850&c=" + "{\n  \"type\": \"doughnut\",\n  \"data\": {\n    \"datasets\": [\n      {\n        \"data\": [\n          $totalIncome,\n          $totalExpenses,\n          $totalInvestments,\n        ],\n        \"backgroundColor\": [\n          \"rgb(72, 245, 44)\",\n          \"rgb(236, 64, 45)\",\n          \"rgb(255, 205, 86)\"\n        ],\n        \"borderColor\": \"%205c5c5c\",\n        \"label\": \"Dataset 1\"\n      }\n    ],\n    \"labels\": [\n      \"Income\",\n      \"Expenses\",\n      \"Inventments\"\n    ]\n  },\n  \"options\": {\n     " +
+    var chartLink ="https://quickchart.io/chart?w=850&h=850&c=" +
+            "{\n  \"type\": \"doughnut\",\n "+
+            " \"data\": {\n    \"datasets\": [\n      {\n        \"data\": [\n          $totalIncome,\n          $totalExpenses,\n          $totalInvestments,\n        ],\n        \"backgroundColor\": [\n          \"rgb(72, 245, 44)\",\n          \"rgb(236, 64, 45)\",\n          \"rgb(255, 205, 86)\"\n        ],\n        \"borderColor\": \"%205c5c5c\",\n        \"label\": \"Dataset 1\"\n      }\n    ],\n    \"labels\": [\n      \"Income \",\n      \"Expenses \",\n      \"Inventments \"\n    ]\n  },\n  \"options\": {\n     " +
             "\"legend\": {\n" +
             "      \"position\": 'bottom',\n" +
             "      \"labels\": {\n" +
-            "        \"fontSize\": 50,\n" +
+            "        \"fontSize\": 40,\n" +
             "        \"fontStyle\": 'bold',\n" +
             "      }\n" +
-            "    },   \"plugins\": {\n      \"datalabels\": {\n        \"display\": true,\n  \"color\": 'black',\n     \"borderRadius\": 3,\n        \"font\": {\n          \"weight\": \"bold\",\n          \"size\": 60\n        }\n      },\n      \"doughnutlabel\": {\n        \"labels\": [\n          {\n            \"text\": \"$diffString\",\n            \"font\": {\n              \"size\": 80,\n              \"weight\": \"bold\"\n            }\n          },\n          {\n            \"text\": \"\"\n          }\n        ]\n      }\n    }\n  }\n}&format=.png"
+            "    },   \"plugins\": {\n      \"datalabels\": {\n        \"display\": true,\n  \"color\": 'black',\n     \"borderRadius\": 3,\n        \"font\": {\n          \"weight\": \"bold\",\n          \"size\": 60\n        }\n      },\n      \"doughnutlabel\": {\n        \"labels\": [\n          {\n            \"text\": \"$diffString\",\n            \"font\": {\n              \"size\": 65,\n              \"weight\": \"bold\"\n            }\n          },\n          {\n            \"text\": \"\"\n          }\n        ]\n      }\n    }\n  }\n}&format=.png"
 
 
 

@@ -26,7 +26,7 @@ import com.example.budgetapp.ui.list.ListFragment
 
 class MyRecyclerAdapter(private val transactionList: ArrayList<Transaction>): RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>() {
 
-    var count = 1 //This variable is used for just testing purpose to understand how RecyclerView works
+    //var count = 1 //This variable is used for just testing purpose to understand how RecyclerView works
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -43,29 +43,25 @@ class MyRecyclerAdapter(private val transactionList: ArrayList<Transaction>): Re
         init {
             itemView.setOnClickListener {
                 //val selectedItem = adapterPosition
-                val transactionID = transactionList[adapterPosition].name
-                Toast.makeText(itemView.context, "You clicked on $transactionID", Toast.LENGTH_SHORT).show()
-
-                //val nav = ListFragment()
-                //nav.Nav(this)
+                //val transactionID = transactionList[adapterPosition].name
+                //Toast.makeText(itemView.context, "You clicked on $transactionID", Toast.LENGTH_SHORT).show()
 
                 val context = itemView.context
 
                 val myIntent = Intent(context, EntryDetailsActivity::class.java)
                 myIntent.putExtra("TransactionID", transactionList[adapterPosition].id)
                 context.startActivity(myIntent)
-
             }
 
 
-            // Set onLongClickListener to show a toast message and remove the selected row item from the list
-            // Make sure to change the  MyViewHolder class to inner class to get a reference to an object of outer class
+            // --- Long click listener, currently does nothing ---
             itemView.setOnLongClickListener {
-                //do Nothing
-//                val selectedItem = adapterPosition
-//                transactionList.removeAt(selectedItem)
-//                notifyItemRemoved(selectedItem)
-//                Toast.makeText(itemView.context, "Long press, deleting $selectedItem", Toast.LENGTH_SHORT).show()
+                //--- Do Nothing ---
+
+                //val selectedItem = adapterPosition
+                //transactionList.removeAt(selectedItem)
+                //notifyItemRemoved(selectedItem)
+                //Toast.makeText(itemView.context, "Long press, deleting $selectedItem", Toast.LENGTH_SHORT).show()
 
                 return@setOnLongClickListener true
             }
@@ -76,7 +72,7 @@ class MyRecyclerAdapter(private val transactionList: ArrayList<Transaction>): Re
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         // Inflate a layout from our XML (row_item.XML) and return the holder
 
-        Log.d(TAG, "onCreateViewHolder: ${count++}")
+        //Log.d(TAG, "onCreateViewHolder: ${count++}")
 
         // create a new view
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_row_layout, parent, false)
