@@ -90,9 +90,12 @@ class MyRecyclerAdapter(private val transactionList: ArrayList<Transaction>): Re
         //Log.d(TAG, "onBindViewHolder: ${currentItem.name}")
         //Log.d(TAG, "onBindViewHolder: ${currentItem.dollarImage}")
 
+        // --- Convert currentItem date to MM/dd/yyyy format
+        var entryDate = currentItem.date
+        entryDate = entryDate.substring(4,6) + "/" + entryDate.substring(6,8) + "/" + entryDate.substring(0,4)
 
         holder.transactionName.text = currentItem.name
-        holder.transactionDate.text = currentItem.date
+        holder.transactionDate.text = entryDate
 
         if(currentItem.amount < 0.0 ){
             holder.transactionAmount.setTextColor(Color.RED)

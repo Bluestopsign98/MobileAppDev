@@ -255,7 +255,7 @@ class SlideshowFragment : Fragment(){
               "    \"labels\": [$labels],\n" +
               "    \"datasets\": [\n" +
               "      {\n" +
-              "        \"label\": 'Income',\n" +
+              "        \"label\": 'Expenses',\n" +
               "        \"backgroundColor\": '$expenseColor',\n" +
               "        \"borderColor\": '$expenseBorderColor',\n" +
               "        \"borderWidth\": 1,\n" +

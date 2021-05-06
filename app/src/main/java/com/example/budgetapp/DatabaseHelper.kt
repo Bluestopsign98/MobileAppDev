@@ -153,6 +153,22 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return cursor
     }
 
+    fun getDataByDate(startDate:String, endDate:String, ascending: Boolean): Cursor {
+
+        // Gets the data repository in write mode
+        val db = this.writableDatabase
+
+        var order = ""
+        if (ascending){
+             order = "ASC"
+        }else{
+            order = "DESC"
+        }
+
+        val cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE `DATE` BETWEEN " + startDate + " AND " + endDate + "  ORDER BY `DATE` " + order , null)
+        return cursor
+    }
+
 
 }
 

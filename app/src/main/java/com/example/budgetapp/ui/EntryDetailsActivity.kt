@@ -1,25 +1,29 @@
 package com.example.budgetapp.ui
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.budgetapp.DatabaseHelper
 import com.example.budgetapp.MainActivity
 import com.example.budgetapp.R
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_add_entry.*
 import kotlinx.android.synthetic.main.activity_add_entry.amount_details_id
 import kotlinx.android.synthetic.main.activity_add_entry.date_details_id
 import kotlinx.android.synthetic.main.activity_add_entry.desc_details_id
 import kotlinx.android.synthetic.main.activity_add_entry.name_details_id
 import kotlinx.android.synthetic.main.activity_entry_details.*
-import java.util.ArrayList
+import java.util.*
 
 private const val TAG = "DetailsActivity"
 
@@ -45,14 +49,14 @@ class EntryDetailsActivity : AppCompatActivity() {
 
         cursor.moveToNext()
         var currentTransaction = Transaction(
-            cursor.getInt(0),
-            cursor.getString(1),
-            cursor.getFloat(2),
-            cursor.getString(4),
-            cursor.getString(3),
-            cursor.getString(5),
-            cursor.getInt(6) > 0,
-            R.drawable.dollar_sign_symbol
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getFloat(2),
+                cursor.getString(4),
+                cursor.getString(3),
+                cursor.getString(5),
+                cursor.getInt(6) > 0,
+                R.drawable.dollar_sign_symbol
         )
 
         cursor.close()
@@ -64,7 +68,12 @@ class EntryDetailsActivity : AppCompatActivity() {
         name_details_id.setText(currentTransaction.name)
         amount_details_id.setText(currentTransaction.amount.toString())
         desc_details_id.setText(currentTransaction.description)
-        date_details_id.setText(currentTransaction.date)
+
+
+        // --- Convert currentItem date to MM/dd/yyyy format
+        var entryDate = currentTransaction.date
+        entryDate = entryDate.substring(4, 6) + "/" + entryDate.substring(6, 8) + "/" + entryDate.substring(0, 4)
+        date_details_id.setText(entryDate)
 
         categorySelected = currentTransaction.category
         income = currentTransaction.income
@@ -115,6 +124,22 @@ class EntryDetailsActivity : AppCompatActivity() {
 
     fun submitEntry(view: View) {
 
+        view.hideKeyboard()
+
+        var dateString = date_details_id.text.toString()
+        val regPattern = "^\\d{2}/\\d{2}/\\d{4}$"
+
+        //--- validate date input ---
+        if(dateString.matches(regPattern.toRegex())) {
+            // --- Convert datestring into yyyyMMdd format from mm/dd/yyyy
+            val strs = dateString.split("/").toTypedArray()
+            dateString = strs[2] + strs[0] + strs[1]
+        } else {
+            Snackbar.make(view, "Invalid date format", Snackbar.LENGTH_LONG)
+                 .setAction("Action", null).show()
+            return
+        }
+
         var amount = amount_details_id.text.toString().toFloat()
         if(income){
         }else{
@@ -127,7 +152,7 @@ class EntryDetailsActivity : AppCompatActivity() {
                     transactionID.toString(),
                     name_details_id.text.toString(),
                     amount_details_id.text.toString().toFloat(),
-                    date_details_id.text.toString(),
+                    dateString,
                     desc_details_id.text.toString(),
                     categorySelected,
                     income
@@ -176,7 +201,7 @@ class EntryDetailsActivity : AppCompatActivity() {
             // this will deserialize the previously saved Json into an object of the specified type (e.g., list)
             expenseCategoriesList = gson.fromJson<ArrayList<String>>(expenseCategories, sType)
         }
-        Log.d("ASDF",expenseCategoriesList.toString())
+        Log.d("ASDF", expenseCategoriesList.toString())
 
     }
 
@@ -218,7 +243,11 @@ class EntryDetailsActivity : AppCompatActivity() {
         startActivity(myIntent)
     }
 
-
+    fun View.hideKeyboard() {
+        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as
+                InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+    }
 
 
 

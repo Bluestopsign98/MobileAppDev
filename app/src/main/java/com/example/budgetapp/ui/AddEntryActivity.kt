@@ -1,16 +1,20 @@
 package com.example.budgetapp.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.budgetapp.DatabaseHelper
 import com.example.budgetapp.MainActivity
 import com.example.budgetapp.R
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_add_entry.*
@@ -50,18 +54,35 @@ class AddEntryActivity : AppCompatActivity() {
 
     fun submitEntry(view: View){
 
+        view.hideKeyboard()
+
+        var dateString = date_details_id.text.toString()
+        val regPattern = "^\\d{2}/\\d{2}/\\d{4}$"
+
+        //--- validate date input ---
+        if(dateString.matches(regPattern.toRegex())) {
+            // --- Convert datestring int0 yyyyMMdd format
+            val strs = dateString.split("/").toTypedArray()
+            dateString = strs[2] + strs[0] + strs[1]
+        } else {
+            Snackbar.make(view, "Invalid date format", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+            return
+        }
+
+
+        // --- Get amount input, set negative if it's an expense ---
         var amount = amount_details_id.text.toString().toFloat()
-        if(income){
-        }else{
+        if(!income){
             amount *= -1
         }
 
         // --- Add new entry to database ---
         try {
-            dbHelper.insertData(name_details_id.text.toString(), amount, date_details_id.text.toString(), desc_details_id.text.toString(), categorySelected, income)
-            Log.d(TAG, "submitEntry: success?")
+            dbHelper.insertData(name_details_id.text.toString(), amount, dateString, desc_details_id.text.toString(), categorySelected, income)
+            Log.d(TAG, "submitEntry: database submission success")
         } catch (e: Exception) {
-            Log.e(TAG, "error: $e")
+            Log.e(TAG, " database submission error: $e")
         }
 
         dbHelper.close()
@@ -152,5 +173,11 @@ class AddEntryActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+    }
+
+    fun View.hideKeyboard() {
+        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as
+                InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
     }
 }
