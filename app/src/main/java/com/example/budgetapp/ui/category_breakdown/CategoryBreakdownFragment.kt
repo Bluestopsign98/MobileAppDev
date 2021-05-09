@@ -1,4 +1,4 @@
-package com.example.budgetapp.ui.slideshow
+package com.example.budgetapp.ui.category_breakdown
 
 import android.os.Bundle
 import android.util.Log

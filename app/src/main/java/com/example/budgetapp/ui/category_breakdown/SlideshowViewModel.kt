@@ -1,4 +1,4 @@
-package com.example.budgetapp.ui.slideshow
+package com.example.budgetapp.ui.category_breakdown
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

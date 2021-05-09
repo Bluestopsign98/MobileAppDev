@@ -97,6 +97,7 @@ class ListFragment : Fragment() {
 
   }
 
+  // --- returns all data withing specified dates ---
   private fun filterDatabaseData():  ArrayList<Transaction>{
     var startDateString = startDateInput.text.toString()
     var endDateString = endDateInput.text.toString()
@@ -131,6 +132,7 @@ class ListFragment : Fragment() {
   }
 
 
+  // --- Returns all data from database ---
   private fun retrieveDatabaseData() : ArrayList<Transaction>{
 
     val dbHelper = DatabaseHelper(requireContext())

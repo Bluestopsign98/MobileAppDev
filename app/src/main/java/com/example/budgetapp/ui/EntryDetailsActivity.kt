@@ -126,6 +126,12 @@ class EntryDetailsActivity : AppCompatActivity() {
 
         view.hideKeyboard()
 
+        if (name_details_id.text.isNullOrBlank() || date_details_id.text.isNullOrBlank() || amount_details_id.text.isNullOrBlank()){
+            Snackbar.make(view, "Missing required fields!", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+            return
+        }
+
         var dateString = date_details_id.text.toString()
         val regPattern = "^\\d{2}/\\d{2}/\\d{4}$"
 

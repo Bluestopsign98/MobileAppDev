@@ -21,35 +21,36 @@ import java.text.DecimalFormat
 
 class HomeFragment : Fragment() {
 
-  private lateinit var homeViewModel: HomeViewModel
-
   override fun onCreateView(
           inflater: LayoutInflater,
           container: ViewGroup?,
           savedInstanceState: Bundle?
   ): View? {
-    homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
     val root = inflater.inflate(R.layout.fragment_home, container, false)
+
     generateSummary(root)
 
     return root
   }
 
+  // --- Retrieve data and generate graph ---
   private fun generateSummary(view: View)
   {
     var totalExpenses = 0.0
     var totalIncome = 0.0
     var totalInvestments = 0.0
-    //To access your database, instantiate your subclass of SQLiteOpenHelper
     val dbHelper = DatabaseHelper(requireContext())
-    // --- Cursor is used to iterate though the result of the database get call
+
+    // --- Cursor is used to iterate though the result of the database get call ---
     val cursor = dbHelper.viewAllData
     while (cursor.moveToNext()) {
-      if(cursor.getFloat(2) >= 0.0) //A positive transaction, add to income total
+      // --- A positive transaction, add to income total ---
+      if(cursor.getFloat(2) >= 0.0)
       {
         totalIncome += cursor.getFloat(2)
       }
-      else //A negative transaction
+
+      else // --- A negative transaction ---
       {
         if(cursor.getString(5) == "Investments" || cursor.getString(5) == "Investment")
         {
@@ -63,7 +64,7 @@ class HomeFragment : Fragment() {
       }
     }
 
-
+    // --- Set up number rounding ---
     val df = DecimalFormat("#.##")
     df.roundingMode = RoundingMode.CEILING
 
@@ -73,22 +74,17 @@ class HomeFragment : Fragment() {
     totalInvestments = df.format(totalInvestments).toDouble()
     totalExpenses *= -1
     totalInvestments *= -1
+
+    // --- calculate the net gain / loss
     var diff = totalIncome-totalExpenses-totalInvestments
+    diff = df.format(diff).toDouble()
+
     var moneyPref = ""
     if(diff > 0.0)
     {
       moneyPref = "%2B"
     }
-    else {
-      if (diff < 0.0)
-        moneyPref = ""
-    }
-    diff = df.format(diff).toDouble()
     var diffString = moneyPref + diff.toString()
-    var labels = ""
-    var data = ""
-    labels += "', "
-    data += "$, "
 
 
     var chartLink ="https://quickchart.io/chart?w=850&h=850&c=" +
@@ -104,8 +100,7 @@ class HomeFragment : Fragment() {
 
 
 
-
-    Log.d("YO",chartLink)
+    // --- Load
     val chart= view.findViewById<ImageView>(R.id.incomeSummaryChart)
     Picasso.get().load(chartLink).into(chart)
 
