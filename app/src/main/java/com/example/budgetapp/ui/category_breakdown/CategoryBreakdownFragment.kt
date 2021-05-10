@@ -60,23 +60,23 @@ class SlideshowFragment : Fragment(){
       if(incomeGraphList.contains(selectedItem))
       {
         incomeGraphList.remove(selectedItem)
-        Toast.makeText(context, "$selectedItem has been removed", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "$selectedItem has been removed", Toast.LENGTH_SHORT).show()
       }
       else
       {
         incomeGraphList.add(selectedItem)
-        Toast.makeText(context, "$selectedItem has been added", Toast.LENGTH_SHORT).show()
+       // Toast.makeText(context, "$selectedItem has been added", Toast.LENGTH_SHORT).show()
       }
     }else{
       if(expenseGraphList.contains(selectedItem))
       {
         expenseGraphList.remove(selectedItem)
-        Toast.makeText(context, "$selectedItem has been removed", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "$selectedItem has been removed", Toast.LENGTH_SHORT).show()
       }
       else
       {
         expenseGraphList.add(selectedItem)
-        Toast.makeText(context, "$selectedItem has been added", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "$selectedItem has been added", Toast.LENGTH_SHORT).show()
       }
     }
 
