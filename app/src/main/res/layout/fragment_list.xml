@@ -17,33 +17,44 @@
         app:layout_constraintTop_toBottomOf="@+id/refreshButton"
         tools:listitem="@layout/recycler_view_row_layout" />
 
-    <EditText
+    <TextView
         android:id="@+id/endDateInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:background="#ECEAEA"
+        android:clickable="false"
         android:ems="10"
-        android:hint="End Date"
-        android:inputType="date"
+        android:hint="12/12/2021"
+        android:text="12/20/2021"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/my_recyler_view"
         app:layout_constraintEnd_toStartOf="@+id/refreshButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/orderButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.436" />
 
-    <EditText
+    <TextView
         android:id="@+id/startDateInput"
         android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        android:background="#ECECEC"
         android:ems="10"
-        android:hint="Start Date"
-        android:inputType="date"
+        android:hint="12/12/2020"
+        android:text="12/12/2020"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/my_recyler_view"
         app:layout_constraintEnd_toStartOf="@+id/orderButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.446" />
 
     <Button
         android:id="@+id/refreshButton"
@@ -61,10 +72,13 @@
         android:id="@+id/orderButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginBottom="5dp"
         android:src="?attr/homeAsUpIndicator"
+        app:layout_constraintBottom_toTopOf="@+id/my_recyler_view"
         app:layout_constraintEnd_toStartOf="@+id/endDateInput"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/startDateInput"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
