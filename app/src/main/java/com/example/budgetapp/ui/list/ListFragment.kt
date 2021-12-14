@@ -2,7 +2,6 @@ package com.example.budgetapp.ui.list
 
 import android.app.DatePickerDialog
 import android.content.ContentValues.TAG
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_list.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.log
 
 private const val TAG = "ListFragment"
 
@@ -35,8 +33,8 @@ class ListFragment : Fragment(), DatePickerDialog.OnDateSetListener {
   lateinit var dbHelper: DatabaseHelper
   lateinit var recyclerView: RecyclerView
   private var ascending = false; // --- Used to determine which direction to sort entries ---
-  // --- TODO: Find an alternative to startorEnd below ---
-  private var startOrEnd = ""; // --- Used to determine which field the date picker should populate.
+  // --- TODO: Find an alternative to isStartorEnd below ---
+  private var isStartOrEnd = ""; // --- Used to determine which field the date picker should populate.
 
   override fun onCreateView(
           inflater: LayoutInflater,
@@ -67,7 +65,7 @@ class ListFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     // --- This is used to open the date picker ---
     var endDateInput = root.findViewById<TextView>(R.id.endDateInput)
     endDateInput.setOnClickListener(View.OnClickListener {
-      startOrEnd = "end"
+      isStartOrEnd = "end"
       // --- Open date picker ---
       val datePickerDialog = DatePickerDialog(this.requireContext(), this@ListFragment, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
       datePickerDialog.show()
@@ -77,7 +75,7 @@ class ListFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     // --- This is used to open the date picker ---
     var startDateInput = root.findViewById<TextView>(R.id.startDateInput)
     startDateInput.setOnClickListener(View.OnClickListener {
-      startOrEnd = "start"
+      isStartOrEnd = "start"
       // --- Open date picker ---
       val datePickerDialog = DatePickerDialog(this.requireContext(), this@ListFragment, calendar.get(Calendar.YEAR) - 1, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
       datePickerDialog.show()
@@ -199,9 +197,9 @@ class ListFragment : Fragment(), DatePickerDialog.OnDateSetListener {
       dayString = "0" + dayString }
 
     // --- Check which button was clicked and update text respective text field ---
-    if (startOrEnd == "start"){
+    if (isStartOrEnd == "start"){
       startDateInput.text = "$monthString/$dayString/$year"
-    }else if (startOrEnd == "end"){
+    }else if (isStartOrEnd == "end"){
       endDateInput.text = "$monthString/$dayString/$year"
     }else{
       Log.d(TAG, "onDateSet: Unknown date input selected!")
